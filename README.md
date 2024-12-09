@@ -1,7 +1,7 @@
 ## Voting Machine Code ReadMe
 
 ### Overview
-This project implements a voting machine using an **EXT IO Card** connected to a microcontroller (e.g., ESP32). It uses Modbus communication for managing and recording votes and displays a user-friendly guide via the serial monitor.
+This project implements a voting machine using an **EXT IO Card** connected to a microcontroller ( ESP32). It uses Modbus communication for managing and recording votes and displays a user-friendly guide via the serial monitor.
 
 ### Features
 - Supports four candidates with real-time vote tallying.
@@ -10,8 +10,8 @@ This project implements a voting machine using an **EXT IO Card** connected to a
 - Stores voting data in Modbus holding registers for external system communication.
 
 ### Components Used
-- **Microcontroller**: ESP32 (or similar).
-- **Multiplexer**: For managing multiple digital inputs (e.g., CD74HC4067).
+- **Microcontroller**: ESP32.
+- **Multiplexer**: For managing multiple digital inputs (CD74HC4067).
 - **EXTIO_Lib**: Custom library for handling multiplexer-based input/output operations.
 - **SimpleModbusSlave**: Library for Modbus communication.
 
