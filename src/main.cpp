@@ -1,25 +1,6 @@
 #include <Arduino.h>
-#include <SimpleModbusSlave.h>
-#include "EXTIO_Lib.h"
 
-#define FW_Ver "V1.1.0"
-
-// Modbus parameters
-#define Baudrate 38400
-#define Format SERIAL_8E1
-#define SlaveID 4
-#define TxEnablePin 2
-
-#define HOLDING_REGS_SIZE 6
-unsigned int holdingRegs[HOLDING_REGS_SIZE] = {0};
-
-const int common_Z = A3; //global variables
-
-// EXTIO_Lib instance for input/output control
-InOut input_mux(7, 8, 9, 10, common_Z); // Set the S0, S1, S2 and S3 pins
-
-
-// Modbus register mappings for voting
+// Define constants for candidates 
 #define CANDIDATE_1 0
 #define CANDIDATE_2 1
 #define CANDIDATE_3 2
@@ -27,67 +8,118 @@ InOut input_mux(7, 8, 9, 10, common_Z); // Set the S0, S1, S2 and S3 pins
 #define TOTAL_VOTES 4
 #define VOTING_STATUS 5
 
+#define HOLDING_REGS_SIZE 6
+unsigned int holdingRegs[HOLDING_REGS_SIZE] = {0};
+
+// GPIO pins for voting inputs
+const int pinDI1 = 33; // Candidate 1 
+const int pinDI2 = 25; // Candidate 2 
+const int pinDI3 = 26; // Candidate 3
+const int pinDI4 = 27; // Candidate 4 
+const int pinDI8 = 14; // End voting
+
+class VotingMachine {
+public:
+    void begin() {
+        configurePin(pinDI1);
+        configurePin(pinDI2);
+        configurePin(pinDI3);
+        configurePin(pinDI4);
+        configurePin(pinDI8);
+
+        Serial.println("Voting Machine Initialized");
+        displayGuide();
+    }
+
+    void checkVotes() {
+        if (debouncedInput(pinDI1, 0)) { // DI1 -> Candidate 1
+            registerVote(CANDIDATE_1, "Candidate 1");
+        }
+
+        if (debouncedInput(pinDI2, 1)) { // DI2 -> Candidate 2
+            registerVote(CANDIDATE_2, "Candidate 2");
+        }
+
+        if (debouncedInput(pinDI3, 2)) { // DI3 -> Candidate 3
+            registerVote(CANDIDATE_3, "Candidate 3");
+        }
+
+        if (debouncedInput(pinDI4, 3)) { // DI4 -> Candidate 4
+            registerVote(CANDIDATE_4, "Candidate 4");
+        }
+
+        if (debouncedInput(pinDI8, 4)) { // DI8 -> End Voting
+            displayResults();
+            holdingRegs[VOTING_STATUS] = 1; // Voting complete status
+            delay(5000); // Pause before resetting
+        }
+    }
+
+private:
+    void configurePin(int pin) {
+        pinMode(pin, INPUT_PULLUP);
+    }
+
+    void displayGuide() {
+        Serial.println("\n--- Voting Machine Interface ---");
+        Serial.println("Press the corresponding button to vote:");
+        Serial.println("DI1 -> Vote for Candidate 1");
+        Serial.println("DI2 -> Vote for Candidate 2");
+        Serial.println("DI3 -> Vote for Candidate 3");
+        Serial.println("DI4 -> Vote for Candidate 4");
+        Serial.println("DI8 -> End Voting and Show Results");
+        Serial.println("---------------------------------");
+    }
+
+    bool debouncedInput(int pin, int index) {
+        static bool buttonPressed[5] = {false};
+        bool reading = digitalRead(pin);
+
+        // If button is pressed (LOW for active-low configuration)
+        if (reading == LOW) {
+            // If this button hasn't been pressed before
+            if (!buttonPressed[index]) {
+                buttonPressed[index] = true;
+                return true;
+            }
+        } else {
+            // Reset button state when released
+            buttonPressed[index] = false;
+        }
+
+        return false;
+    }
+
+    void registerVote(int candidate, const char* candidateName) {
+        holdingRegs[candidate]++;
+        holdingRegs[TOTAL_VOTES]++;
+        Serial.print("Vote registered for ");
+        Serial.println(candidateName);
+        delay(200); // Feedback delay
+    }
+
+    void displayResults() {
+        Serial.println("\n--- Voting Results ---");
+        Serial.print("Candidate 1 Votes: ");
+        Serial.println(holdingRegs[CANDIDATE_1]);
+        Serial.print("Candidate 2 Votes: ");
+        Serial.println(holdingRegs[CANDIDATE_2]);
+        Serial.print("Candidate 3 Votes: ");
+        Serial.println(holdingRegs[CANDIDATE_3]);
+        Serial.print("Candidate 4 Votes: ");
+        Serial.println(holdingRegs[CANDIDATE_4]);
+        Serial.print("Total Votes: ");
+        Serial.println(holdingRegs[TOTAL_VOTES]);
+    }
+};
+
+VotingMachine votingMachine;
 
 void setup() {
-  // Initialize Modbus
-  modbus_configure(&Serial, Baudrate, Format, SlaveID, TxEnablePin, HOLDING_REGS_SIZE, holdingRegs);
-  modbus_update_comms(Baudrate, Format, SlaveID);
-
-  pinMode(common_Z, INPUT);
-
-  // Serial for debugging
-  Serial.begin(115200);
-  Serial.println("EXT IO Card Voting Machine Initialized");
+    Serial.begin(115200); // Serial for debugging
+    votingMachine.begin(); // Initialize Voting Machine
 }
 
 void loop() {
-  // Update Modbus communication
-  modbus_update();
-
-  // Check voting inputs and update Modbus registers
-  if (ioModule.DI_Read(0)) { // DI1 -> Candidate 1
-    holdingRegs[CANDIDATE_1]++;
-    holdingRegs[TOTAL_VOTES]++;
-    Serial.println("Vote registered for Candidate 1");
-    delay(200); // Debounce delay
-  }
-
-  if (ioModule.DI_Read(1)) { // DI2 -> Candidate 2
-    holdingRegs[CANDIDATE_2]++;
-    holdingRegs[TOTAL_VOTES]++;
-    Serial.println("Vote registered for Candidate 2");
-    delay(200);
-  }
-
-  if (ioModule.DI_Read(2)) { // DI3 -> Candidate 3
-    holdingRegs[CANDIDATE_3]++;
-    holdingRegs[TOTAL_VOTES]++;
-    Serial.println("Vote registered for Candidate 3");
-    delay(200);
-  }
-
-  if (ioModule.DI_Read(3)) { // DI4 -> Candidate 4
-    holdingRegs[CANDIDATE_4]++;
-    holdingRegs[TOTAL_VOTES]++;
-    Serial.println("Vote registered for Candidate 4");
-    delay(200);
-  }
-
-  // End voting status triggered by a specific DI (e.g., DI8)
-  if (ioModule.DI_Read(7)) { // DI8 -> End Voting
-    Serial.println("\n--- Voting Results ---");
-    Serial.print("Candidate 1 Votes: ");
-    Serial.println(holdingRegs[CANDIDATE_1]);
-    Serial.print("Candidate 2 Votes: ");
-    Serial.println(holdingRegs[CANDIDATE_2]);
-    Serial.print("Candidate 3 Votes: ");
-    Serial.println(holdingRegs[CANDIDATE_3]);
-    Serial.print("Candidate 4 Votes: ");
-    Serial.println(holdingRegs[CANDIDATE_4]);
-    Serial.print("Total Votes: ");
-    Serial.println(holdingRegs[TOTAL_VOTES]);
-
-    holdingRegs[VOTING_STATUS] = 1; // Voting complete status
-    delay(5000); // Pause before resetting
-  }
+    votingMachine.checkVotes();
 }
