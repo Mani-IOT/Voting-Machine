@@ -1,4 +1,4 @@
-## Voting Machine Code ReadMe
+# Voting Machine Code Readme
 
 ### Overview
 This project implements a **Voting Machine** using an **ESP32** microcontroller. It allows users to vote for one of four candidates via digital inputs, and the results are displayed on the serial monitor.
@@ -19,14 +19,14 @@ This project implements a **Voting Machine** using an **ESP32** microcontroller.
   - DI8 -> Ends Voting and Displays Results
 
 ### Register Mapping
-| Register      | Purpose                    | 
-|---------------|----------------------------|
-| `CANDIDATE_1` | Votes for Candidate 1      |
-| `CANDIDATE_2` | Votes for Candidate 2      | 
-| `CANDIDATE_3` | Votes for Candidate 3      |
-| `CANDIDATE_4` | Votes for Candidate 4      | 
-| `TOTAL_VOTES` | Total votes cast           | 
-| `VOTING_STATUS` | Voting completion status | 
+| Register      | Purpose                    | Index |
+|---------------|----------------------------|-------|
+| `CANDIDATE_1` | Votes for Candidate 1      | 0     |
+| `CANDIDATE_2` | Votes for Candidate 2      | 1     |
+| `CANDIDATE_3` | Votes for Candidate 3      | 2     |
+| `CANDIDATE_4` | Votes for Candidate 4      | 3     |
+| `TOTAL_VOTES` | Total votes cast           | 4     |
+| `VOTING_STATUS` | Voting completion status | 5     |
 
 ### Serial Monitor Instructions
 - The serial monitor displays the following instructions:
@@ -63,5 +63,4 @@ Candidate 3 Votes: 2
 Candidate 4 Votes: 3
 Total Votes: 10
 ```
-
 
