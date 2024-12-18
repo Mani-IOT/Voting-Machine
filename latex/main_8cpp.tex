@@ -1,0 +1,72 @@
+\doxysection{src/main.cpp File Reference}
+\hypertarget{main_8cpp}{}\label{main_8cpp}\index{src/main.cpp@{src/main.cpp}}
+
+
+Main program file for the Arduino-\/based Voting Machine.  
+
+
+{\ttfamily \#include "{}Voting\+Machine.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}{setup}} ()
+\begin{DoxyCompactList}\small\item\em Arduino setup function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_afe461d27b9c48d5921c00d521181f12f}{loop}} ()
+\begin{DoxyCompactList}\small\item\em Arduino main loop function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+Voting\+Machine \mbox{\hyperlink{main_8cpp_a90791e37ef7e77f547039831420482f9}{voting\+Machine}}
+\begin{DoxyCompactList}\small\item\em \texorpdfstring{$<$}{<} Include the custom Voting\+Machine library \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main program file for the Arduino-\/based Voting Machine. 
+
+This program initializes the Voting\+Machine class and continuously monitors votes in the loop. It uses the custom Voting\+Machine library to handle voting functionality and display results.
+
+\begin{DoxyAuthor}{Author}
+K Mani Balan 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+16/12/2024 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8cpp_afe461d27b9c48d5921c00d521181f12f}\index{main.cpp@{main.cpp}!loop@{loop}}
+\index{loop@{loop}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{loop()}{loop()}}
+{\footnotesize\ttfamily \label{main_8cpp_afe461d27b9c48d5921c00d521181f12f} 
+void loop (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Arduino main loop function. 
+
+Continuously monitors GPIO inputs to check for votes or end voting signal. \texorpdfstring{$<$}{<} Monitor votes and manage the voting process\Hypertarget{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}\index{main.cpp@{main.cpp}!setup@{setup}}
+\index{setup@{setup}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily \label{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d} 
+void setup (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Arduino setup function. 
+
+Initializes the Serial interface for debugging and calls the Voting\+Machine\textquotesingle{}s initialization routine. \texorpdfstring{$<$}{<} Begin Serial communication at 115200 baud rate
+
+\texorpdfstring{$<$}{<} Initialize the Voting Machine
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{main_8cpp_a90791e37ef7e77f547039831420482f9}\index{main.cpp@{main.cpp}!votingMachine@{votingMachine}}
+\index{votingMachine@{votingMachine}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{votingMachine}{votingMachine}}
+{\footnotesize\ttfamily \label{main_8cpp_a90791e37ef7e77f547039831420482f9} 
+Voting\+Machine voting\+Machine}
+
+
+
+\texorpdfstring{$<$}{<} Include the custom Voting\+Machine library 
+
+Create an object of Voting\+Machine 

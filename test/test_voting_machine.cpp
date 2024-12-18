@@ -6,8 +6,8 @@
  * including vote registration, multiple votes, and voting status. The tests use a 
  * wrapper class to access private members for testing purposes.
  * 
- * @author [Your Name]
- * @date [Date]
+ * @author K Mani Balan
+ * @date 16/12/2024
  */
 
 #include <unity.h>
