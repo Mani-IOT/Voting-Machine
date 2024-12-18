@@ -1,0 +1,14 @@
+C:/Users/KMani.Balan/Documents/PlatformIO/Projects/Voting Machine/build/CMakeFiles/RUN_TESTS.dir
+C:/Users/KMani.Balan/Documents/PlatformIO/Projects/Voting Machine/build/CMakeFiles/INSTALL.dir
+C:/Users/KMani.Balan/Documents/PlatformIO/Projects/Voting Machine/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/KMani.Balan/Documents/PlatformIO/Projects/Voting Machine/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/KMani.Balan/Documents/PlatformIO/Projects/Voting Machine/build/googlemock/CMakeFiles/gmock.dir
+C:/Users/KMani.Balan/Documents/PlatformIO/Projects/Voting Machine/build/googlemock/CMakeFiles/gmock_main.dir
+C:/Users/KMani.Balan/Documents/PlatformIO/Projects/Voting Machine/build/googlemock/CMakeFiles/RUN_TESTS.dir
+C:/Users/KMani.Balan/Documents/PlatformIO/Projects/Voting Machine/build/googlemock/CMakeFiles/INSTALL.dir
+C:/Users/KMani.Balan/Documents/PlatformIO/Projects/Voting Machine/build/googlemock/CMakeFiles/ALL_BUILD.dir
+C:/Users/KMani.Balan/Documents/PlatformIO/Projects/Voting Machine/build/googletest/CMakeFiles/gtest.dir
+C:/Users/KMani.Balan/Documents/PlatformIO/Projects/Voting Machine/build/googletest/CMakeFiles/gtest_main.dir
+C:/Users/KMani.Balan/Documents/PlatformIO/Projects/Voting Machine/build/googletest/CMakeFiles/RUN_TESTS.dir
+C:/Users/KMani.Balan/Documents/PlatformIO/Projects/Voting Machine/build/googletest/CMakeFiles/INSTALL.dir
+C:/Users/KMani.Balan/Documents/PlatformIO/Projects/Voting Machine/build/googletest/CMakeFiles/ALL_BUILD.dir

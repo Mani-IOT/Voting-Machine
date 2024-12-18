@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\KMani.Balan\Documents\PlatformIO\Projects\Voting Machine\lib\googletest\googletest\src\gtest_main.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\KMani.Balan\Documents\PlatformIO\Projects\Voting Machine\lib\googletest\googletest\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{2E046DD3-DB25-3A75-A4A3-065F79EF8B6B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
